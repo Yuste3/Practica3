@@ -1,0 +1,662 @@
+openapi: 3.0.0
+info:
+  title: Aplicación para Kinan Coforge
+  description: |
+    API para aplicación Kinan Coforge
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/aplicacionKinan/empleados/insertarEmpleado:
+    post:
+      summary: Insertar un nuevo empleado
+      description: |
+        Añadir un empleado al sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado añadido correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpleadoDTO'
+        '400':
+          description: Fallo al insertar un empleado
+  /api/aplicacionKinan/empleados/listarEmpleados:
+    get:
+      summary: Obtiene todos los empleados
+      description: |
+        Devuelve todos los empleados que hay en el sistema.
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleados devueltos exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmpleadoDTO'
+        '500':
+          description: Internal server error
+  /api/aplicacionKinan/empleados/obtenerEmpleado/{nombreEmpleado}:
+    get:
+      summary: Obtener un empleado específico
+      description: |
+        Devuelve la información de un empleado especificado por su nombre.
+      parameters:
+        - name: nombreEmpleado
+          in: path
+          description: Nombre del empleado que se quiere consultar
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpleadoDTO'
+        '404':
+          description: Empleado no encontrado
+  /api/aplicacionKinan/empleados/obtenerEmpleado/{codigoEmpleado}:
+    get:
+      summary: Obtener un empleado específico
+      description: |
+        Devuelve la información de un empleado especificado por su código de empleado.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Codigo del empleado que se quiere consultar
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpleadoDTO'
+        '404':
+          description: Empleado no encontrado
+  /api/aplicacionKinan/empleados/actualizarEmpleado/{codigoEmpleado}:
+    put:
+      summary: Actualizar un empleado por codigo del empleado
+      description: |
+        Actualiza los datos de un empleado del sistema.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado que se quiere actualizar.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado actualizado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpleadoDTO'
+        '400':
+          description: Error al intentar actualizar el empleado.
+        '404':
+          description: Empleado no encontrado
+  /api/aplicacionKinan/empleados/actualizarEmpleado/{nombreEmpleado}:
+    put:
+      summary: Actualizar un empleado por nombre
+      description: |
+        Actualiza los datos de un empleado del sistema.
+      parameters:
+        - name: nombreEmpleado
+          in: path
+          description: Nombre del empleado que se quiere actualizar.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpleadoDTO'
+        '400':
+          description: Error al intentar actualizar el empleado
+        '404':
+          description: Empleado no encontrado
+  /api/aplicacionKinan/empleados/eliminarEmpleado/{codigoEmpleado}:
+    delete:
+      summary: Eliminar un empleado del sistema.
+      description: |
+        Eliminar un empleado del sistema por su código de empleado.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado que se quiere eliminar.
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado eliminado correctamente
+        '404':
+          description: Empleado no encontrado
+  /api/aplicacionKinan/empleados/eliminarEmpleado/{nombreEmpleado}:
+    delete:
+      summary: Eliminar un empleado del sistema.
+      description: |
+        Eliminar un empleado del sistema por su nombre.
+      parameters:
+        - name: nombreEmpleado
+          in: path
+          description: Nombre del empleado que se quiere eliminar.
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Empleado eliminado correctamente
+        '404':
+          description: Empleado no encontrado
+  /api/aplicaconKinan/practicas/insertarPractica:
+    post:
+      summary: Insertar nueva practica
+      description: |
+        Añadir una nueva práctica en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PracticaDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Práctica añadida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticaDTO'
+        '400':
+          description: Error al intentar añadir la práctica.
+  /api/aplicacionKinan/practicas/listarPracticas:
+    get:
+      summary: Obtener todas las prácticas.
+      description: |
+        Devuelve todas las prácticas existentes en el sistema.
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Practica obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PracticaDTO'
+        '500':
+          description: Internal server error
+  /api/aplicacionKinan/practicas/obtenerPractica/{nombrePractica}:
+    get:
+      summary: Obtener una practica.
+      description: |
+        Devuelve la información de una practica.
+      parameters:
+        - name: nombrePractica
+          in: path
+          description: Código de la práctica que se quiere buscar.
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Práctica encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProyectoDTO'
+        '404':
+          description: Práctica no encontrada
+  /api/aplicacionKinan/practicas/actualizarPracitas/{nombrePractica}:
+    put:
+      summary: Actualizar una practica
+      description: |
+        Actualizar una practica existente en el sistema.
+      parameters:
+        - name: nombrePractica
+          in: path
+          description: Nombre de la practica que se quiere actualizar.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PracticaDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Práctica actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticaDTO'
+        '400':
+          description: Error al intentar actualizar el proyecto
+        '404':
+          description: Proyecto no encontrado
+  /api/aplicacionKinan/practicas/eliminarPractica/{nombrePractica}:
+    delete:
+      summary: Eliminar una practica
+      description: |
+        Eliminar una practica existente en el sistema.
+      parameters:
+        - name: nombrePractica
+          in: path
+          description: Nombre de la practica que se quiere eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Práctica eliminado correctamente
+        '404':
+          description: Práctica no encontrado
+
+  /api/aplicaconKinan/proyectos/insertarProyecto:
+    post:
+      summary: Insertar un nuevo proyecto.
+      description: |
+        Añadir un nuevo proyecto en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProyectoDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Proyecto añadido correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProyectoDTO'
+        '400':
+          description: Error al intentar añadir el proyecto.
+  /api/aplicacionKinan/proyectos/listarProyectos:
+    get:
+      summary: Obtener todos los proyectos
+      description: |
+        Devuelve todos los proyectos existentes en el sistema.
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Proyesctos obtenidos correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProyectoDTO'
+        '500':
+          description: Internal server error
+  /api/aplicacionKinan/proyectos/obtenerProyecto/{codigoProyecto}:
+    get:
+      summary: Obtener un proyecto por su codigo.
+      description: |
+        Devuelve la información de un proyecto específicado por el código del proyecto.
+      parameters:
+        - name: codigoProyecto
+          in: path
+          description: Código del proyecto que se quiere buscar.
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Proyecto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProyectoDTO'
+        '404':
+          description: Proyecto no enontrado
+  /api/aplicacionKinan/proyectos/actualizarProyecto/{codigoProyecto}:
+    put:
+      summary: Actualizar un proyecto
+      description: |
+        Actualizar un proyecto existente en el sistema.
+      parameters:
+        - name: codigoProyecto
+          in: path
+          description: Código del proyecto que se quiere actualizar.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProyectoDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Proyecto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProyectoDTO'
+        '400':
+          description: Error al intentar actualizar el proyecto
+        '404':
+          description: Proyecto no encontrado
+  /api/aplicacionKinan/proyectos/eliminarProyecto/{codigoProyecto}:
+    delete:
+      summary: Eliminar un proyecto
+      description: |
+        Eliminar un proyecto existente en el sistema.
+      parameters:
+        - name: codigoProyecto
+          in: path
+          description: Código del proyecto que se quiere eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Proyecto eliminado correctamente
+        '404':
+          description: Proyecto no encontrado
+
+
+
+
+
+  /api/aplicacionKinan/asignaciones/insertarAsignacion:
+    post:
+      summary: Insertar una nueva asignacion
+      description: |
+        Añadir una nueva asignación en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsignacionDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación insertada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsignacionDTO'
+        '400':
+          description: Error al insertar la asignación
+  /api/aplicacionKinan/asignaciones/listarAsignaciones:
+    get:
+      summary: Obtener todas las asignaciones
+      description: |
+        Devuelve todas las asignaciones del sistema.
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignaciones obtenidas correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AsignacionDTO'
+        '500':
+          description: Internal server error
+  /api/aplicacionKinan/asignaciones/obtenerAsignacion/{codigoEmpleado}:
+    get:
+      summary: Otener una asignacióln específica por Código del empleado.
+      description: |
+        Devuelve la información de una asignación de un empleado específico por su código.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado del que se quiere mostrar la asignación.
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsignacionDTO'
+        '404':
+          description: Asignación no encontrada
+  /api/aplicacionKinan/asignaciones/obtenerAsignacion/{nombreEmpleado}:
+    get:
+      summary: Otener una asignacióln específica por nombre del empleado.
+      description: |
+        Devuelve la información de una asignación de un empleado específico por su nombre.
+      parameters:
+        - name: nombreEmpleado
+          in: path
+          description: Nombre del empleado del que se quiere mostrar la asignación.
+          required: true
+          schema:
+            type: strikng
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsignacionDTO'
+        '404':
+          description: Asignación no encontrada
+
+  /api/aplicacionKinan/asignaciones/actualiarAsignacion/{codigoEmpleado}:
+    put:
+      summary: Actualizar asignacion
+      description: |
+        Actualizar una asignación por el código del empleado.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado del que se quiere actualizar la asignacion.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsignacionDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asignación DTO'
+        '400':
+          description: Error al intentar actualizar la asignación.
+        '404':
+          description: Asignación no encontrada.
+  /api/aplicacionKinan/asignaciones/actualiarAsignacion/{nombreEmpleado}:
+    put:
+      summary: Actualizar asignacion
+      description: |
+        Actualizar una asignación por el nombre del empleado.
+      parameters:
+        - name: nombreEmpleado
+          in: path
+          description: Nombre del empleado del que se quiere actualizar la asignacion.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsignacionDTO'
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asignación DTO'
+        '400':
+          description: Error al intentar actualizar la asignación.
+        '404':
+          description: Asignación no encontrada.
+
+  /api/aplicacionKinan/asignaciones/eliminarAsignacion/{codigoEmpleado}:
+    delete:
+      summary: Eliminar una asignación
+      description: |
+        Elimina una asignación existente en el sistema por el código del empleado.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado del que se quiere eliminar la asignación.
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación eliminada correctamente
+        '404':
+          description: Asignación no encontrada
+
+  /api/aplicacionKinan/asignaciones/eliminarAsignacion/{nombreEmleado}:
+    delete:
+      summary: Eliminar una asignación
+      description: |
+        Elimina una asignación existente en el sistema por el nombre del empleado.
+      parameters:
+        - name: codigoEmpleado
+          in: path
+          description: Código del empleado del que se quiere eliminar la asignación.
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Error inesperado
+        '200':
+          description: Asignación eliminada correctamente
+        '404':
+          description: Asignación no encontrada
+
+components:
+  schemas:
+    PracticaDTO:
+      type: object
+      properties:
+        nombrePractica:
+          type: string
+      required:
+        - nombrePractica
+    ProyectoDTO:
+      type: object
+      properties:
+        codigoProyecto:
+          type: string
+      required:
+        - codigoProyecto
+    AsignacionDTO:
+      type: object
+      properties:
+        codigoEmpleado:
+          type: integer
+        nombreEmpleado:
+          type: string
+        nombrePractica:
+          type: string
+        oldCodigoProyecto:
+          type: string
+        newCodigoProyecto:
+          type: string
+
+      required:
+        - name
+    EmpleadoDTO:
+      type: object
+      properties:
+        codigoEmpleado:
+          type: integer
+        nombreEmpleado:
+          type: string
+        rolEmpleado:
+          type: string
+      required:
+        - codigoEmpleado
+        - nombreEmpleado
+        - rolEmpleado
