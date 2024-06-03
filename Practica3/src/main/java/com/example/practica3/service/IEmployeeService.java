@@ -35,7 +35,6 @@ public class IEmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
-        //TODO Devolver un DTO en vez de un objeto normal
         return repository.findAll();
     }
 

@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ProjectDTO {
-    private String code;
+public class UProjectDTO {
+    private String newCode;
 }

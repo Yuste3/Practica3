@@ -1,7 +1,11 @@
 package com.example.practica3.service;
 
+import com.example.practica3.DTOs.EmployeeDTO;
 import com.example.practica3.DTOs.ProjectDTO;
+import com.example.practica3.DTOs.UProjectDTO;
+import com.example.practica3.model.Employee;
 import com.example.practica3.model.Project;
+import com.example.practica3.repository.EmployeeRepository;
 import com.example.practica3.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +27,7 @@ public class IProjectService {
 
         try {
             Project projectResult = repository.save(project);
-            return projectResult.getProjectCode().equals(projectResult.getProjectCode());
+            return projectResult.getProjectCode().equals(project.getProjectCode());
         } catch (Exception e) {
             return false;
         }
@@ -33,11 +37,11 @@ public class IProjectService {
         return repository.findAll();
     }
 
-    public Project getProject(Long id) {
+    public Project getProject(String id) {
         return repository.findById(id).orElse(null);
     }
 
-    public boolean deleteProject(Long id) {
+    public boolean deleteProject(String id) {
         try {
             repository.deleteById(id);
             return true;
@@ -48,15 +52,19 @@ public class IProjectService {
 
     public boolean refreshProject(Project oldProject, Project newProject) {
         try {
-            oldProject.setProjectCode(newProject.getProjectCode());
-            Project projectResult = repository.save(oldProject);
-            return projectResult.getProjectCode().equals(oldProject.getProjectCode());
+            Project projectResult = repository.save(newProject);
+            repository.deleteById(oldProject.getProjectCode());
+            return projectResult.getProjectCode().equals(newProject.getProjectCode());
         } catch (Exception e) {
             return false;
         }
     }
 
     public boolean validateProject(ProjectDTO projectDTO) {
-        return projectDTO.getProjectCode() != null && !projectDTO.getProjectCode().isEmpty();
+        return projectDTO.getCode() != null && !projectDTO.getCode().isEmpty();
+    }
+
+    public boolean validateProject(UProjectDTO projectDTO) {
+        return projectDTO.getNewCode() != null && !projectDTO.getNewCode().isEmpty();
     }
 }
