@@ -1,0 +1,48 @@
+@startuml
+entity Employee {
+    +INT EMPLOYEE_CODE
+    +VARCHAR NAME
+    +VARCHAR ROLE
+    +STRING PRACTICE
+}
+
+entity Practice {
+    +STRING PRACTICE_CODE
+}
+
+entity Project {
+    +STRING PROJECT_CODE
+}
+
+entity Assignment {
+    +INT ID_ASSIGNMENT
+    +INT ID_SUPERVISOR
+'    +VARCHAR Supervisor_Name
+    +INT ID_EMPLOYEE
+'    +VARCHAR Employee_Name
+'    +VARCHAR Employee_Role
+'    +VARCHAR EMP_Practice
+    +VARCHAR WBS_PRACTICE
+    +VARCHAR NEW_PROJECT_CODE
+    +VARCHAR OLD_PROJECT_CODE
+    +VARCHAR REMARK
+    +DECIMAL PERCENTAGE
+    +VARCHAR START_DATE
+    +VARCHAR END_DATE
+
+}
+
+'Employee ||-o{ Assignment : "supervisor"
+'Employee ||--o{ Assignment : "employee"
+'Practice ||--o{ Employee : "has"
+'Practice ||--o{ Assignment : "practice"
+'Project ||--o{ Assignment : "new_project"
+'Project ||--o{ Assignment : "old_project"
+
+Employee -> Assignment : "supervisor"
+Employee --> Assignment : "employee"
+Practice <-- Employee : "has"
+Practice --> Assignment : "practice"
+Project --> Assignment : "new_project"
+Project --> Assignment : "old_project"
+@enduml
