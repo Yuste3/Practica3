@@ -62,7 +62,7 @@ class ProjectAPITest {
 
         ResponseEntity<ErrorResponse> response = controller.insertProject(projectDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     @Test
@@ -158,7 +158,7 @@ class ProjectAPITest {
 
         ResponseEntity<ErrorResponse> response = controller.refreshProject(code, newProjectDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.example.practica3.Practica3.controller;
 
+import com.example.practica3.DTOs.ErrorResponse;
 import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
 import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.Mappers.PracticeMapper;
@@ -47,7 +48,7 @@ class PracticeAPITest {
         when(mapper.practiceDTOToPractice(practiceDTO)).thenReturn(practice);
         when(service.insertNewPractice(practice)).thenReturn(true);
 
-        ResponseEntity<PracticeDTO> response = controller.insertPractice(practiceDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertPractice(practiceDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service, times(1)).insertNewPractice(practice);
@@ -62,9 +63,9 @@ class PracticeAPITest {
         when(mapper.practiceDTOToPractice(practiceDTO)).thenReturn(practice);
         when(service.insertNewPractice(practice)).thenReturn(false);
 
-        ResponseEntity<PracticeDTO> response = controller.insertPractice(practiceDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertPractice(practiceDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         verify(service, times(1)).insertNewPractice(practice);
     }
 
@@ -74,7 +75,7 @@ class PracticeAPITest {
 
         when(service.validatePractice(practiceDTO)).thenReturn(false);
 
-        ResponseEntity<PracticeDTO> response = controller.insertPractice(practiceDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertPractice(practiceDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -99,7 +100,7 @@ class PracticeAPITest {
         when(service.getPractice(code)).thenReturn(practice);
         when(mapper.practiceToDTO(practice)).thenReturn(new PracticeDTO());
 
-        ResponseEntity<PracticeDTO> response = controller.getPractice(code);
+        ResponseEntity<?> response = controller.getPractice(code);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
@@ -110,7 +111,7 @@ class PracticeAPITest {
         String code = "1";
         when(service.getPractice(code)).thenReturn(null);
 
-        ResponseEntity<PracticeDTO> response = controller.getPractice(code);
+        ResponseEntity<?> response = controller.getPractice(code);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -126,7 +127,7 @@ class PracticeAPITest {
         when(service.getPractice(code)).thenReturn(oldPractice);
         when(service.refreshPractice(oldPractice, newPractice)).thenReturn(true);
 
-        ResponseEntity<Practice> response = controller.refreshPractice(code, newPracticeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshPractice(code, newPracticeDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service, times(1)).refreshPractice(oldPractice, newPractice);
@@ -143,9 +144,9 @@ class PracticeAPITest {
         when(service.getPractice(code)).thenReturn(oldPractice);
         when(service.refreshPractice(oldPractice, newPractice)).thenReturn(false);
 
-        ResponseEntity<Practice> response = controller.refreshPractice(code, newPracticeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshPractice(code, newPracticeDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     @Test
@@ -155,7 +156,7 @@ class PracticeAPITest {
         when(service.getPractice(code)).thenReturn(null);
         when(service.validatePractice(newPracticeDTO)).thenReturn(true);
 
-        ResponseEntity<Practice> response = controller.refreshPractice(code, newPracticeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshPractice(code, newPracticeDTO);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -165,7 +166,7 @@ class PracticeAPITest {
         String code = "1";
         when(service.deletePractice(code)).thenReturn(true);
 
-        ResponseEntity<HttpStatus> response = controller.deletePractice(code);
+        ResponseEntity<ErrorResponse> response = controller.deletePractice(code);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -175,7 +176,7 @@ class PracticeAPITest {
         String code = "1";
         when(service.deletePractice(code)).thenReturn(false);
 
-        ResponseEntity<HttpStatus> response = controller.deletePractice(code);
+        ResponseEntity<ErrorResponse> response = controller.deletePractice(code);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }

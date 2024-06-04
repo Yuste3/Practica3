@@ -179,7 +179,7 @@ public class EmployeeAPITest {
 
         ResponseEntity<ErrorResponse> response = controller.refreshEmployee(id, newEmployeeDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         verify(service, times(1)).refreshEmployee(oldEmployee, newEmployee);
     }
 }
