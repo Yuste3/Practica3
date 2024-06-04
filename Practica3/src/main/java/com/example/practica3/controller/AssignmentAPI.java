@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/assignment")
+@RequestMapping("/api/assignments")
 public class AssignmentAPI {
 
     private final IAssignmentService service;

@@ -32,5 +32,11 @@ public interface AssignmentMapper {
     @Mapping(source="assignmentID", target="assignmentInfo.code")
     @Mapping(source="oldProjectCode.projectCode", target="project.oldCode")
     @Mapping(source="newProjectCode.projectCode", target="project.newCode")
+    @Mapping(source="employee.employeeID", target="employee.code")
+    @Mapping(source="employee.name", target="employee.name")
+    @Mapping(source="employee.role", target="employee.role")
+    @Mapping(source="employee.practice.name", target="employee.practice")
+    @Mapping(source="supervisor.employeeID", target="supervisor.code")
+    @Mapping(source="supervisor.name", target="supervisor.name")
     AssignmentResponseDTO assignmentToResponseDTO(Assignment assignment);
 }

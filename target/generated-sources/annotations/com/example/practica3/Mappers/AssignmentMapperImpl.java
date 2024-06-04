@@ -4,7 +4,9 @@ import com.example.practica3.DTOs.AssignmentDTO;
 import com.example.practica3.DTOs.AssignmentInfoDTO;
 import com.example.practica3.DTOs.AssignmentInfoResponseDTO;
 import com.example.practica3.DTOs.AssignmentResponseDTO;
+import com.example.practica3.DTOs.EmployeeAssignmentResponseDTO;
 import com.example.practica3.DTOs.ProjectAssignmentDTO;
+import com.example.practica3.DTOs.SupervisorAssignmentResponseDTO;
 import com.example.practica3.model.Assignment;
 import com.example.practica3.model.Employee;
 import com.example.practica3.model.Practice;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T12:34:33+0200",
+    date = "2024-06-04T14:03:35+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -62,9 +64,9 @@ public class AssignmentMapperImpl implements AssignmentMapper {
             }
             projectToProjectAssignmentDTO1( assignment.getNewProjectCode(), assignmentResponseDTO.getProject() );
         }
+        assignmentResponseDTO.setEmployee( employeeToEmployeeAssignmentResponseDTO( assignment.getEmployee() ) );
+        assignmentResponseDTO.setSupervisor( employeeToSupervisorAssignmentResponseDTO( assignment.getSupervisor() ) );
         assignmentResponseDTO.setPracticeName( assignmentPracticeName( assignment ) );
-        assignmentResponseDTO.setEmployee( assignment.getEmployee() );
-        assignmentResponseDTO.setSupervisor( assignment.getSupervisor() );
 
         return assignmentResponseDTO;
     }
@@ -225,6 +227,53 @@ public class AssignmentMapperImpl implements AssignmentMapper {
         }
 
         mappingTarget.setNewCode( project.getProjectCode() );
+    }
+
+    private String employeePracticeName(Employee employee) {
+        if ( employee == null ) {
+            return null;
+        }
+        Practice practice = employee.getPractice();
+        if ( practice == null ) {
+            return null;
+        }
+        String name = practice.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
+    }
+
+    protected EmployeeAssignmentResponseDTO employeeToEmployeeAssignmentResponseDTO(Employee employee) {
+        if ( employee == null ) {
+            return null;
+        }
+
+        EmployeeAssignmentResponseDTO employeeAssignmentResponseDTO = new EmployeeAssignmentResponseDTO();
+
+        if ( employee.getEmployeeID() != null ) {
+            employeeAssignmentResponseDTO.setCode( employee.getEmployeeID().intValue() );
+        }
+        employeeAssignmentResponseDTO.setName( employee.getName() );
+        employeeAssignmentResponseDTO.setRole( employee.getRole() );
+        employeeAssignmentResponseDTO.setPractice( employeePracticeName( employee ) );
+
+        return employeeAssignmentResponseDTO;
+    }
+
+    protected SupervisorAssignmentResponseDTO employeeToSupervisorAssignmentResponseDTO(Employee employee) {
+        if ( employee == null ) {
+            return null;
+        }
+
+        SupervisorAssignmentResponseDTO supervisorAssignmentResponseDTO = new SupervisorAssignmentResponseDTO();
+
+        if ( employee.getEmployeeID() != null ) {
+            supervisorAssignmentResponseDTO.setCode( employee.getEmployeeID().intValue() );
+        }
+        supervisorAssignmentResponseDTO.setName( employee.getName() );
+
+        return supervisorAssignmentResponseDTO;
     }
 
     private String assignmentPracticeName(Assignment assignment) {

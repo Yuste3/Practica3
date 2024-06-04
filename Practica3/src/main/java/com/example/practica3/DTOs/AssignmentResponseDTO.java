@@ -13,8 +13,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Data
 public class AssignmentResponseDTO {
-    private Employee employee;
-    private Employee supervisor;
+    private EmployeeAssignmentResponseDTO employee;
+    private SupervisorAssignmentResponseDTO supervisor;
     private String practiceName;
     private ProjectAssignmentDTO project;
     private AssignmentInfoResponseDTO assignmentInfo;
