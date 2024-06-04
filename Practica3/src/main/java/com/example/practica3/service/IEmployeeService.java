@@ -23,13 +23,17 @@ public class IEmployeeService {
         if (repository == null || employee == null) {
             return false;
         }
-
-        try {
-            Employee employeeResult = repository.save(employee);
-            return employeeResult.getEmployeeID() == employee.getEmployeeID() &&
-                    employeeResult.getName().equals(employee.getName()) &&
-                    employeeResult.getRole().equals(employee.getRole());
-        } catch (Exception e) {
+        Employee employeeInDDBB = repository.findById(employee.getEmployeeID()).orElse(null);
+        if (employeeInDDBB == null) {
+            try {
+                Employee employeeResult = repository.save(employee);
+                return employeeResult.getEmployeeID() == employee.getEmployeeID() &&
+                        employeeResult.getName().equals(employee.getName()) &&
+                        employeeResult.getRole().equals(employee.getRole());
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
             return false;
         }
     }

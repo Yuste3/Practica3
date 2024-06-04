@@ -28,10 +28,15 @@ public class IPracticeService {
             return false;
         }
 
-        try {
-            Practice practiceResult = repository.save(practice);
-            return practiceResult.getName().equals(practice.getName());
-        } catch (Exception e) {
+        Practice practiceInDDBB = repository.findById(practice.getName()).orElse(null);
+        if (practiceInDDBB == null) {
+            try {
+                Practice practiceResult = repository.save(practice);
+                return practiceResult.getName().equals(practice.getName());
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
             return false;
         }
     }

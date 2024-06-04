@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-30T10:36:36+0200",
+    date = "2024-06-04T12:29:35+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -37,16 +37,16 @@ public class EmployeeMapperImpl implements EmployeeMapper {
             return null;
         }
 
-        EmployeeDTO.EmployeeDTOBuilder employeeDTO = EmployeeDTO.builder();
+        EmployeeDTO employeeDTO = new EmployeeDTO();
 
         if ( employee.getEmployeeID() != null ) {
-            employeeDTO.code( employee.getEmployeeID().intValue() );
+            employeeDTO.setCode( employee.getEmployeeID().intValue() );
         }
-        employeeDTO.practice( employeePracticeName( employee ) );
-        employeeDTO.name( employee.getName() );
-        employeeDTO.role( employee.getRole() );
+        employeeDTO.setPractice( employeePracticeName( employee ) );
+        employeeDTO.setName( employee.getName() );
+        employeeDTO.setRole( employee.getRole() );
 
-        return employeeDTO.build();
+        return employeeDTO;
     }
 
     @Override

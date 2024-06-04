@@ -1,6 +1,7 @@
 package com.example.practica3.Practica3.controller;
 
 import com.example.practica3.DTOs.EmployeeDTO;
+import com.example.practica3.DTOs.ErrorResponse;
 import com.example.practica3.DTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.controller.EmployeeAPI;
@@ -41,7 +42,7 @@ public class EmployeeAPITest {
         when(mapper.employeeDTOToEmployee(employeeDTO)).thenReturn(employee);
         when(service.insertNewEmployee(employee)).thenReturn(true);
 
-        ResponseEntity<EmployeeDTO> response = controller.insertEmployee(employeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertEmployee(employeeDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service, times(1)).insertNewEmployee(employee);
@@ -56,9 +57,9 @@ public class EmployeeAPITest {
         when(mapper.employeeDTOToEmployee(employeeDTO)).thenReturn(employee);
         when(service.insertNewEmployee(employee)).thenReturn(false);
 
-        ResponseEntity<EmployeeDTO> response = controller.insertEmployee(employeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertEmployee(employeeDTO);
 
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         verify(service, times(1)).insertNewEmployee(employee);
     }
 
@@ -68,7 +69,7 @@ public class EmployeeAPITest {
 
         when(service.validateEmployee(employeeDTO)).thenReturn(false);
 
-        ResponseEntity<EmployeeDTO> response = controller.insertEmployee(employeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertEmployee(employeeDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -91,7 +92,7 @@ public class EmployeeAPITest {
         when(service.getEmployee(id)).thenReturn(employee);
         when(mapper.employeeToDTO(employee)).thenReturn(new EmployeeDTO());
 
-        ResponseEntity<EmployeeDTO> response = controller.getEmployee(id);
+        ResponseEntity<?> response = controller.getEmployee(id);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(service, times(1)).getEmployee(id);
@@ -102,7 +103,7 @@ public class EmployeeAPITest {
         Long id = 1L;
         when(service.getEmployee(id)).thenReturn(null);
 
-        ResponseEntity<EmployeeDTO> response = controller.getEmployee(id);
+        ResponseEntity<?> response = controller.getEmployee(id);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         verify(service, times(1)).getEmployee(id);
@@ -113,7 +114,7 @@ public class EmployeeAPITest {
         Long id = 1L;
         when(service.deleteEmployee(id)).thenReturn(true);
 
-        ResponseEntity<HttpStatus> response = controller.deleteEmployee(id);
+        ResponseEntity<ErrorResponse> response = controller.deleteEmployee(id);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service, times(1)).deleteEmployee(id);
@@ -124,7 +125,7 @@ public class EmployeeAPITest {
         Long id = 1L;
         when(service.deleteEmployee(id)).thenReturn(false);
 
-        ResponseEntity<HttpStatus> response = controller.deleteEmployee(id);
+        ResponseEntity<ErrorResponse> response = controller.deleteEmployee(id);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         verify(service, times(1)).deleteEmployee(id);
@@ -142,7 +143,7 @@ public class EmployeeAPITest {
         when(mapper.uEmployeeDTOToEmployee(newEmployeeDTO)).thenReturn(newEmployee);
         when(service.refreshEmployee(oldEmployee, newEmployee)).thenReturn(true);
 
-        ResponseEntity<Employee> response = controller.refreshEmployee(id, newEmployeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshEmployee(id, newEmployeeDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(service, times(1)).refreshEmployee(oldEmployee, newEmployee);
@@ -158,7 +159,7 @@ public class EmployeeAPITest {
         when(service.getEmployee(id)).thenReturn(null);
         when(mapper.uEmployeeDTOToEmployee(newEmployeeDTO)).thenReturn(newEmployee);
 
-        ResponseEntity<Employee> response = controller.refreshEmployee(id, newEmployeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshEmployee(id, newEmployeeDTO);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         verify(service, times(0)).refreshEmployee(any(), any());
@@ -176,7 +177,7 @@ public class EmployeeAPITest {
         when(mapper.uEmployeeDTOToEmployee(newEmployeeDTO)).thenReturn(newEmployee);
         when(service.refreshEmployee(oldEmployee, newEmployee)).thenReturn(false);
 
-        ResponseEntity<Employee> response = controller.refreshEmployee(id, newEmployeeDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshEmployee(id, newEmployeeDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         verify(service, times(1)).refreshEmployee(oldEmployee, newEmployee);

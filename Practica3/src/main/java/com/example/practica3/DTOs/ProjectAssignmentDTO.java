@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UProjectDTO {
+public class ProjectAssignmentDTO {
+    private String oldCode;
     private String newCode;
 }

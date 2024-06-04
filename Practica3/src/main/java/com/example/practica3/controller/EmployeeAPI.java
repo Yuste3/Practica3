@@ -1,6 +1,7 @@
 package com.example.practica3.controller;
 
 import com.example.practica3.DTOs.EmployeeDTO;
+import com.example.practica3.DTOs.ErrorResponse;
 import com.example.practica3.DTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.model.Employee;
@@ -36,7 +37,7 @@ public class EmployeeAPI {
      *         or HTTP status 400 (Bad Request) if insertion fails.
      */
     @PostMapping()
-    public ResponseEntity<EmployeeDTO> insertEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<ErrorResponse> insertEmployee(@RequestBody EmployeeDTO employeeDTO) {
         boolean validatedEmployee = service.validateEmployee(employeeDTO);
         if (validatedEmployee) {
             Employee employee = employeeMapper.employeeDTOToEmployee(employeeDTO);
@@ -44,10 +45,10 @@ public class EmployeeAPI {
             if (response) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ErrorResponse(1, "Error inserting employee"), HttpStatus.CONFLICT);
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(2, "Error in the request"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -69,10 +70,10 @@ public class EmployeeAPI {
      *         or HTTP status 404 (Not Found) if the employee doesn't exist.
      */
     @GetMapping("/{code}")
-    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Long code) {
+    public ResponseEntity<?> getEmployee(@PathVariable Long code) {
         Employee employee = service.getEmployee(code);
         if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(3, "Employee not found."), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(employeeMapper.employeeToDTO(employee), HttpStatus.OK);
         }
@@ -88,23 +89,23 @@ public class EmployeeAPI {
      *         or HTTP status 400 (Bad Request) if the update fails.
      */
     @PutMapping("/{code}")
-    public ResponseEntity<Employee> refreshEmployee(@PathVariable Long code, @RequestBody UEmployeeDTO newEmployeeDTO) {
+    public ResponseEntity<ErrorResponse> refreshEmployee(@PathVariable Long code, @RequestBody UEmployeeDTO newEmployeeDTO) {
         boolean validatedEmployee = service.validateEmployee(newEmployeeDTO);
         if (validatedEmployee) {
             Employee newEmployee = employeeMapper.uEmployeeDTOToEmployee(newEmployeeDTO);
             Employee oldEmployee = service.getEmployee(code);
             if (oldEmployee == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ErrorResponse(4, "Employee not found"), HttpStatus.NOT_FOUND);
             } else {
                 boolean response = service.refreshEmployee(oldEmployee, newEmployee);
                 if (response) {
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 } else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new ErrorResponse(5, "Error updating employee"), HttpStatus.CONFLICT);
                 }
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(6, "Error in the request"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -116,8 +117,8 @@ public class EmployeeAPI {
      *         or HTTP status 404 (Not Found) if the employee doesn't exist.
      */
     @DeleteMapping("/{code}")
-    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable Long code) {
+    public ResponseEntity<ErrorResponse> deleteEmployee(@PathVariable Long code) {
         boolean response = service.deleteEmployee(code);
-        return response ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.CONFLICT);
+        return response ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(new ErrorResponse(7, "Error deleting employee"), HttpStatus.CONFLICT);
     }
 }

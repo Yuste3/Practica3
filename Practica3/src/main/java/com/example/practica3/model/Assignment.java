@@ -11,33 +11,32 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+//@Builder
 public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long assignmentID;
 
     @ManyToOne
-//    @Column(name = "employee", nullable = false)
     private Employee employee;
 
     @ManyToOne
-//    @Column(name = "practice", nullable = false)
+    private Employee supervisor;
+
+    @ManyToOne
     private Practice practice;
 
     @ManyToOne
-//    @Column(name = "proyect", nullable = false)
-    private Project project;
+    private Project oldProjectCode;
+
+    @ManyToOne
+    private Project newProjectCode;
 
     @Column(name = "RDG Remakrs", nullable = false)
-    private String RDGRemakrs;
+    private String RDGRemarks;
 
     @Column(name = "allocation %", nullable = false)
     private String allocation;
-
-    @ManyToOne
-//    @Column(name = "practice", nullable = false)
-    private Employee supervisor;
 
     @Column(name = "allocation start date", nullable = false)
     private String allocationStartDate;
@@ -45,10 +44,5 @@ public class Assignment {
     @Column(name = "allocation end date", nullable = false)
     private String allocationEndDate;
 
-    @Column(name = "travel date", nullable = false)
-    private String travelDate;
-
-    @Column(name = "remarks", nullable = false)
-    private String remarks;
 
 }

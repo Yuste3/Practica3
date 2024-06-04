@@ -24,11 +24,15 @@ public class IProjectService {
         if (repository == null || project == null) {
             return false;
         }
-
-        try {
-            Project projectResult = repository.save(project);
-            return projectResult.getProjectCode().equals(project.getProjectCode());
-        } catch (Exception e) {
+        Project projectInDDBB = repository.findById(project.getProjectCode()).orElse(null);
+        if (projectInDDBB == null) {
+            try {
+                Project projectResult = repository.save(project);
+                return projectResult.getProjectCode().equals(project.getProjectCode());
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
             return false;
         }
     }
