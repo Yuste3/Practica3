@@ -1,14 +1,14 @@
 package com.example.practica3.Mappers;
 
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.model.Practice;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T13:37:53+0200",
+    date = "2024-06-04T15:38:17+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component

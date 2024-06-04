@@ -1,7 +1,7 @@
 package com.example.practica3.Practica3.mappers;
 
-import com.example.practica3.DTOs.ProjectDTO;
-import com.example.practica3.DTOs.UProjectDTO;
+import com.example.practica3.DTOs.ProjectDTOs.ProjectDTO;
+import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
 import com.example.practica3.Mappers.ProjectMapper;
 import com.example.practica3.model.Project;
 import org.junit.jupiter.api.Test;

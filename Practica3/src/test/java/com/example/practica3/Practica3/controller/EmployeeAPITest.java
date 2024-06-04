@@ -1,8 +1,8 @@
 package com.example.practica3.Practica3.controller;
 
-import com.example.practica3.DTOs.EmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.EmployeeDTO;
 import com.example.practica3.DTOs.ErrorResponse;
-import com.example.practica3.DTOs.UEmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.controller.EmployeeAPI;
 import com.example.practica3.model.Employee;

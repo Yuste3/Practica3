@@ -1,8 +1,9 @@
 package com.example.practica3.controller;
 
-import com.example.practica3.DTOs.ProjectDTO;
-//import com.example.practica3.DTOs.UProjectDTO;
-import com.example.practica3.DTOs.UProjectDTO;
+import com.example.practica3.DTOs.ErrorResponse;
+import com.example.practica3.DTOs.ProjectDTOs.ProjectDTO;
+//import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
+import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
 import com.example.practica3.Mappers.ProjectMapper;
 import com.example.practica3.model.Project;
 import com.example.practica3.service.IProjectService;
@@ -35,7 +36,7 @@ public class ProjectAPI {
      *         or HTTP status 400 (Bad Request) if insertion fails.
      */
     @PostMapping
-    public ResponseEntity<ProjectDTO> insertProject(@RequestBody ProjectDTO projectDTO) {
+    public ResponseEntity<ErrorResponse> insertProject(@RequestBody ProjectDTO projectDTO) {
         boolean validatedProject = service.validateProject(projectDTO);
         if (validatedProject) {
             Project project = projectMapper.projectDTOToProject(projectDTO);
@@ -43,10 +44,10 @@ public class ProjectAPI {
             if (response) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ErrorResponse(22, "Error inserting project"), HttpStatus.CONFLICT);
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(23, "Wrong value for project"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -68,10 +69,10 @@ public class ProjectAPI {
      *         or HTTP status 404 (Not Found) if the project doesn't exist.
      */
     @GetMapping("/{code}")
-    public ResponseEntity<ProjectDTO> getProject(@PathVariable String code) {
+    public ResponseEntity<?> getProject(@PathVariable String code) {
         Project project = service.getProject(code);
         if (project == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(24, "Project not found"), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(projectMapper.projectToDTO(project), HttpStatus.OK);
         }
@@ -87,23 +88,23 @@ public class ProjectAPI {
      *         or HTTP status 400 (Bad Request) if the update fails.
      */
     @PutMapping("/{code}")
-    public ResponseEntity<Project> refreshProject(@PathVariable String code, @RequestBody UProjectDTO newProjectDTO) {
+    public ResponseEntity<ErrorResponse> refreshProject(@PathVariable String code, @RequestBody UProjectDTO newProjectDTO) {
         boolean validatedProject = service.validateProject(newProjectDTO);
         if (validatedProject) {
             Project newProject = projectMapper.uProjectDTOToProject(newProjectDTO);
             Project oldProject = service.getProject(code);
             if (oldProject == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ErrorResponse(25, "Project not found"), HttpStatus.NOT_FOUND);
             } else {
                 boolean response = service.refreshProject(oldProject, newProject);
                 if (response) {
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 } else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new ErrorResponse(26, "Error updating project"), HttpStatus.CONFLICT);
                 }
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(27, "Wrong value for new project"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -115,8 +116,8 @@ public class ProjectAPI {
      *         or HTTP status 404 (Not Found) if the project doesn't exist.
      */
     @DeleteMapping("/{code}")
-    public ResponseEntity<HttpStatus> deleteProject(@PathVariable String code) {
+    public ResponseEntity<ErrorResponse> deleteProject(@PathVariable String code) {
         boolean response = service.deleteProject(code);
-        return response ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.CONFLICT);
+        return response ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(new ErrorResponse(28, "Error deleting project"), HttpStatus.CONFLICT);
     }
 }

@@ -1,13 +1,12 @@
 package com.example.practica3.Practica3.mappers;
 
-import com.example.practica3.DTOs.EmployeeDTO;
-import com.example.practica3.DTOs.UEmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.EmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.model.Employee;
 import com.example.practica3.model.Practice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 

@@ -1,12 +1,12 @@
 package com.example.practica3.Mappers;
 
-import com.example.practica3.DTOs.AssignmentDTO;
-import com.example.practica3.DTOs.AssignmentInfoDTO;
-import com.example.practica3.DTOs.AssignmentInfoResponseDTO;
-import com.example.practica3.DTOs.AssignmentResponseDTO;
-import com.example.practica3.DTOs.EmployeeAssignmentResponseDTO;
-import com.example.practica3.DTOs.ProjectAssignmentDTO;
-import com.example.practica3.DTOs.SupervisorAssignmentResponseDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentInfoDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentInfoResponseDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentResponseDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.EmployeeAssignmentResponseDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.ProjectAssignmentDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.SupervisorAssignmentResponseDTO;
 import com.example.practica3.model.Assignment;
 import com.example.practica3.model.Employee;
 import com.example.practica3.model.Practice;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-04T14:03:35+0200",
+    date = "2024-06-04T15:38:17+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component

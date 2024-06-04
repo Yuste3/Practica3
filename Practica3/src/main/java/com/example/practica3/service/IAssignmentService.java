@@ -1,6 +1,6 @@
 package com.example.practica3.service;
 
-import com.example.practica3.DTOs.AssignmentDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentDTO;
 import com.example.practica3.model.Assignment;
 import com.example.practica3.model.Employee;
 import com.example.practica3.repository.AssignmentRepository;

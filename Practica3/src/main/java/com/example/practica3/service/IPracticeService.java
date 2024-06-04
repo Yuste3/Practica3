@@ -1,15 +1,13 @@
 package com.example.practica3.service;
 
-import com.example.practica3.DTOs.EmployeeDTO;
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.model.Employee;
 import com.example.practica3.model.Practice;
 import com.example.practica3.repository.EmployeeRepository;
 import com.example.practica3.repository.PracticeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -1,14 +1,13 @@
 package com.example.practica3.Practica3.mappers;
 
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.Mappers.PracticeMapper;
 import com.example.practica3.model.Practice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,4 +1,4 @@
-package com.example.practica3.DTOs;
+package com.example.practica3.DTOs.AssignmentDTOs;
 
 
 import lombok.AllArgsConstructor;

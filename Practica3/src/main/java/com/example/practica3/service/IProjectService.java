@@ -1,11 +1,8 @@
 package com.example.practica3.service;
 
-import com.example.practica3.DTOs.EmployeeDTO;
-import com.example.practica3.DTOs.ProjectDTO;
-import com.example.practica3.DTOs.UProjectDTO;
-import com.example.practica3.model.Employee;
+import com.example.practica3.DTOs.ProjectDTOs.ProjectDTO;
+import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
 import com.example.practica3.model.Project;
-import com.example.practica3.repository.EmployeeRepository;
 import com.example.practica3.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 

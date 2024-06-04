@@ -1,7 +1,8 @@
 package com.example.practica3.Practica3.controller;
 
-import com.example.practica3.DTOs.ProjectDTO;
-import com.example.practica3.DTOs.UProjectDTO;
+import com.example.practica3.DTOs.ErrorResponse;
+import com.example.practica3.DTOs.ProjectDTOs.ProjectDTO;
+import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
 import com.example.practica3.Mappers.ProjectMapper;
 import com.example.practica3.controller.ProjectAPI;
 import com.example.practica3.model.Project;
@@ -45,7 +46,7 @@ class ProjectAPITest {
         when(projectMapper.projectDTOToProject(projectDTO)).thenReturn(project);
         when(service.insertNewProject(project)).thenReturn(true);
 
-        ResponseEntity<ProjectDTO> response = controller.insertProject(projectDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertProject(projectDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
@@ -59,7 +60,7 @@ class ProjectAPITest {
         when(projectMapper.projectDTOToProject(projectDTO)).thenReturn(project);
         when(service.insertNewProject(project)).thenReturn(false);
 
-        ResponseEntity<ProjectDTO> response = controller.insertProject(projectDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertProject(projectDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -70,7 +71,7 @@ class ProjectAPITest {
 
         when(service.validateProject(projectDTO)).thenReturn(false);
 
-        ResponseEntity<ProjectDTO> response = controller.insertProject(projectDTO);
+        ResponseEntity<ErrorResponse> response = controller.insertProject(projectDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -97,7 +98,7 @@ class ProjectAPITest {
         when(service.getProject(code)).thenReturn(project);
         when(projectMapper.projectToDTO(project)).thenReturn(projectDTO);
 
-        ResponseEntity<ProjectDTO> response = controller.getProject(code);
+        ResponseEntity<?> response = controller.getProject(code);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -108,7 +109,7 @@ class ProjectAPITest {
 
         when(service.getProject(code)).thenReturn(null);
 
-        ResponseEntity<ProjectDTO> response = controller.getProject(code);
+        ResponseEntity<?> response = controller.getProject(code);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -125,7 +126,7 @@ class ProjectAPITest {
         when(service.getProject(code)).thenReturn(oldProject);
         when(service.refreshProject(oldProject, newProject)).thenReturn(true);
 
-        ResponseEntity<Project> response = controller.refreshProject(code, newProjectDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshProject(code, newProjectDTO);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
@@ -138,7 +139,7 @@ class ProjectAPITest {
         when(service.validateProject(newProjectDTO)).thenReturn(true);
         when(service.getProject(code)).thenReturn(null);
 
-        ResponseEntity<Project> response = controller.refreshProject(code, newProjectDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshProject(code, newProjectDTO);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -155,7 +156,7 @@ class ProjectAPITest {
         when(service.getProject(code)).thenReturn(oldProject);
         when(service.refreshProject(oldProject, newProject)).thenReturn(false);
 
-        ResponseEntity<Project> response = controller.refreshProject(code, newProjectDTO);
+        ResponseEntity<ErrorResponse> response = controller.refreshProject(code, newProjectDTO);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
@@ -166,7 +167,7 @@ class ProjectAPITest {
 
         when(service.deleteProject(code)).thenReturn(true);
 
-        ResponseEntity<HttpStatus> response = controller.deleteProject(code);
+        ResponseEntity<ErrorResponse> response = controller.deleteProject(code);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -177,7 +178,7 @@ class ProjectAPITest {
 
         when(service.deleteProject(code)).thenReturn(false);
 
-        ResponseEntity<HttpStatus> response = controller.deleteProject(code);
+        ResponseEntity<ErrorResponse> response = controller.deleteProject(code);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }

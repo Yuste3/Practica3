@@ -1,7 +1,8 @@
 package com.example.practica3.controller;
 
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.ErrorResponse;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.Mappers.PracticeMapper;
 import com.example.practica3.model.Practice;
 import com.example.practica3.service.IPracticeService;
@@ -34,7 +35,7 @@ public class PracticeAPI {
      *         or HTTP status 400 (Bad Request) if insertion fails.
      */
     @PostMapping
-    public ResponseEntity<PracticeDTO> insertPractice(@RequestBody PracticeDTO practiceDTO) {
+    public ResponseEntity<ErrorResponse> insertPractice(@RequestBody PracticeDTO practiceDTO) {
         boolean validatedPractice = service.validatePractice(practiceDTO);
         if (validatedPractice) {
             Practice practice = practiceMapper.practiceDTOToPractice(practiceDTO);
@@ -42,10 +43,10 @@ public class PracticeAPI {
             if (response) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ErrorResponse(15, "Error inserting practice"), HttpStatus.CONFLICT);
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(16, "Wrong value for practice"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -67,10 +68,10 @@ public class PracticeAPI {
      *         or HTTP status 404 (Not Found) if the practice doesn't exist.
      */
     @GetMapping("/{code}")
-    public ResponseEntity<PracticeDTO> getPractice(@PathVariable String code) {
+    public ResponseEntity<?> getPractice(@PathVariable String code) {
         Practice practice = service.getPractice(code);
         if (practice == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(17, "Practice not found"), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(practiceMapper.practiceToDTO(practice), HttpStatus.OK);
         }
@@ -86,23 +87,23 @@ public class PracticeAPI {
      *         or HTTP status 400 (Bad Request) if the update fails.
      */
     @PutMapping("/{code}")
-    public ResponseEntity<Practice> refreshPractice(@PathVariable String code, @RequestBody UPracticeDTO newPracticeDTO) {
+    public ResponseEntity<ErrorResponse> refreshPractice(@PathVariable String code, @RequestBody UPracticeDTO newPracticeDTO) {
         boolean validatedPractice = service.validatePractice(newPracticeDTO);
         if (validatedPractice) {
             Practice newPractice = practiceMapper.uPracticeDTOToPractice(newPracticeDTO);
             Practice oldPractice = service.getPractice(code);
             if (oldPractice == null) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ErrorResponse(18, "Practice not found"), HttpStatus.NOT_FOUND);
             } else {
                 boolean response = service.refreshPractice(oldPractice, newPractice);
                 if (response) {
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
                 } else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(new ErrorResponse(19, "Error updating practice"), HttpStatus.CONFLICT);
                 }
             }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(20, "Wrong value for new practice"), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -114,8 +115,8 @@ public class PracticeAPI {
      *         or HTTP status 404 (Not Found) if the practice doesn't exist.
      */
     @DeleteMapping("/{code}")
-    public ResponseEntity<HttpStatus> deletePractice(@PathVariable String code) {
+    public ResponseEntity<ErrorResponse> deletePractice(@PathVariable String code) {
         boolean response = service.deletePractice(code);
-        return response ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.CONFLICT);
+        return response ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(new ErrorResponse(21, "Error deleting practice"), HttpStatus.CONFLICT);
     }
 }

@@ -1,13 +1,14 @@
-package com.example.practica3.DTOs;
+package com.example.practica3.DTOs.PracticeDTOs;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UProjectDTO {
-    private String newCode;
+public class PracticeDTO {
+    private String code;
 }

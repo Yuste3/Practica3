@@ -1,7 +1,7 @@
 package com.example.practica3.Mappers;
 
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.model.Practice;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

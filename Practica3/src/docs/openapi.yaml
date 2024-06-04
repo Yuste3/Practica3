@@ -29,20 +29,28 @@ paths:
             schema:
               $ref: '#/components/schemas/EmployeeDTO'
       responses:
-        default:
-          description: Unexpected error
         '204':
           description: Employee added successfully
         '400':
-          description: Failed to insert an employee
+          description: Error in the request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Error inserting employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Unexpected error
     get:
       tags:
         - Employees
       description: |
         Get all employees in the system.
       responses:
-        default:
-          description: Unexpected error
         '200':
           description: Employees retrieved successfully
           content:
@@ -67,8 +75,6 @@ paths:
           schema:
             type: integer
       responses:
-        default:
-          description: Unexpected error
         '200':
           description: Employee found
           content:
@@ -77,6 +83,12 @@ paths:
                 $ref: '#/components/schemas/EmployeeDTO'
         '404':
           description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Unexpected error
     put:
       tags:
         - Employees
@@ -96,14 +108,28 @@ paths:
             schema:
               $ref: '#/components/schemas/UEmployeeDTO'
       responses:
-        default:
-          description: Unexpected error
         '204':
           description: Employee updated successfully
         '400':
-          description: Error updating the employee
+          description: Values for employee are wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Error updating employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Unexpected error
     delete:
       tags:
         - Employees
@@ -117,13 +143,16 @@ paths:
           schema:
             type: integer
       responses:
-        default:
-          description: Unexpected error
         '204':
           description: Employee deleted successfully
-        '404':
-          description: Employee not found
-
+        '409':
+          description: Error deleting employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Unexpected error
   /api/practices:
     post:
       tags:
@@ -141,8 +170,18 @@ paths:
           description: Unexpected error
         '204':
           description: Practice added successfully
+        '409':
+          description: Error inserting practice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '400':
-          description: Error adding the practice
+          description: Worng value for practice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
         - Practices
@@ -185,6 +224,10 @@ paths:
                 $ref: '#/components/schemas/PracticeDTO'
         '404':
           description: Practice not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - Practices
@@ -209,9 +252,23 @@ paths:
         '204':
           description: Practice updated successfully
         '400':
+          description: Wrong value for new practice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           description: Error updating the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - Practices
@@ -229,8 +286,12 @@ paths:
           description: Unexpected error
         '204':
           description: Practice deleted successfully
-        '404':
+        '409':
           description: Practice not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/projects:
     post:
@@ -250,7 +311,17 @@ paths:
         '204':
           description: Project added successfully
         '400':
-          description: Error adding the project
+          description: Wrong value for project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Error inserting project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
         - Projects
@@ -293,6 +364,10 @@ paths:
                 $ref: '#/components/schemas/ProjectDTO'
         '404':
           description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - Projects
@@ -317,9 +392,23 @@ paths:
         '204':
           description: Project updated successfully
         '400':
-          description: Error updating the project
+          description: Wrong value for new project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Error updating project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - Projects
@@ -337,8 +426,12 @@ paths:
           description: Unexpected error
         '204':
           description: Project deleted successfully
-        '404':
+        '409':
           description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/assignments:
     post:
@@ -358,7 +451,17 @@ paths:
         '204':
           description: Assignment inserted successfully
         '400':
+          description: Values for assignment are wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           description: Error inserting the assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     get:
       tags:
         - Assignments
@@ -401,6 +504,10 @@ paths:
                 $ref: '#/components/schemas/Assignment'
         '404':
           description: Assignment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - Assignments
@@ -425,9 +532,23 @@ paths:
         '204':
           description: Assignment updated successfully
         '400':
-          description: Error updating the assignment
+          description: Values for assignment are wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Assignment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Error updating assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       tags:
         - Assignments
@@ -445,8 +566,12 @@ paths:
           description: Unexpected error
         '204':
           description: Assignment deleted successfully
-        '404':
-          description: Assignment not found
+        '409':
+          description: Error deleting assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -556,21 +681,10 @@ components:
               type: string
             endDate:
               type: string
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        reason:
+          type: string

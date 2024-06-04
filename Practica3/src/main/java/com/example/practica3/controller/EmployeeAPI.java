@@ -1,19 +1,17 @@
 package com.example.practica3.controller;
 
-import com.example.practica3.DTOs.EmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.EmployeeDTO;
 import com.example.practica3.DTOs.ErrorResponse;
-import com.example.practica3.DTOs.UEmployeeDTO;
+import com.example.practica3.DTOs.EmployeeDTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.model.Employee;
 import com.example.practica3.service.IEmployeeService;
-import com.example.practica3.service.IPracticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -105,7 +103,7 @@ public class EmployeeAPI {
                 }
             }
         } else {
-            return new ResponseEntity<>(new ErrorResponse(6, "Error in the request"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorResponse(6, "Values for employee are wrong"), HttpStatus.BAD_REQUEST);
         }
     }
 

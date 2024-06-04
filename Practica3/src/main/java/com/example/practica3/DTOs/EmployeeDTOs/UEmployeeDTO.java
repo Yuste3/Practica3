@@ -1,4 +1,4 @@
-package com.example.practica3.DTOs;
+package com.example.practica3.DTOs.EmployeeDTOs;
 
 
 import lombok.AllArgsConstructor;

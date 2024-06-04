@@ -1,7 +1,7 @@
 package com.example.practica3.Practica3.controller;
 
-import com.example.practica3.DTOs.PracticeDTO;
-import com.example.practica3.DTOs.UPracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
+import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.Mappers.PracticeMapper;
 import com.example.practica3.controller.PracticeAPI;
 import com.example.practica3.model.Practice;

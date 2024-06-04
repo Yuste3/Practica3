@@ -1,16 +1,13 @@
-package com.example.practica3.DTOs;
-
+package com.example.practica3.DTOs.AssignmentDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class EmployeeAssignmentResponseDTO {
+public class SupervisorAssignmentResponseDTO {
     private int code;
     private String name;
-    private String role;
-    private String practice;
 }

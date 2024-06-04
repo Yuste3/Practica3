@@ -1,21 +1,17 @@
 package com.example.practica3.controller;
 
 import com.example.practica3.DTOs.*;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentDTO;
+import com.example.practica3.DTOs.AssignmentDTOs.AssignmentResponseDTO;
 import com.example.practica3.Mappers.AssignmentMapper;
-import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.model.Assignment;
-import com.example.practica3.model.Employee;
 import com.example.practica3.service.IAssignmentService;
-import com.example.practica3.service.IEmployeeService;
-import com.example.practica3.service.IPracticeService;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -34,7 +30,7 @@ public class AssignmentAPI {
     }
 
     @PostMapping()
-    public ResponseEntity<ErrorResponse> insertEmployee(@RequestBody AssignmentDTO assignmentDTO) {
+    public ResponseEntity<ErrorResponse> insertAssignment(@RequestBody AssignmentDTO assignmentDTO) {
         boolean validatedAssignment = service.validateAssignment(assignmentDTO);
         if (validatedAssignment) {
             Assignment assignment = assignmentMapper.assignmentDTOToAssignment(assignmentDTO);
@@ -42,7 +38,7 @@ public class AssignmentAPI {
             if (response) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                return new ResponseEntity<>(new ErrorResponse(8, "Error inserting the assignment"), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ErrorResponse(8, "Error inserting the assignment"), HttpStatus.CONFLICT);
             }
         } else {
             return new ResponseEntity<>(new ErrorResponse(9, "Values for assignment are wrong"), HttpStatus.BAD_REQUEST);
@@ -50,7 +46,7 @@ public class AssignmentAPI {
     }
 
     @GetMapping()
-    public ResponseEntity<List<AssignmentResponseDTO>> getAllEmployees() {
+    public ResponseEntity<List<AssignmentResponseDTO>> getAllAssignments() {
         return new ResponseEntity<>(service.getAllAssignments().stream().map(assignmentMapper::assignmentToResponseDTO).toList(), HttpStatus.OK);
     }
 
