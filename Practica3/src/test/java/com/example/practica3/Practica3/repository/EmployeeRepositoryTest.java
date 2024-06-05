@@ -60,6 +60,21 @@ public class EmployeeRepositoryTest {
     }
 
     @Test
+    public void shouldGetEmployeeSavedInDDBB() throws Exception {
+        Practice practice = new Practice("practiceTest");
+        practiceRepository.save(practice);
+
+        Employee employee1 = new Employee(1L, "Daniel Yuste", "Developer", practice);
+        employeeRepository.save(employee1);
+
+        mockMvc.perform(get("/api/employees"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name", is("Daniel Yuste")));
+    }
+
+    @Test
     public void shouldInsertEmployeeInDDBB() throws Exception {
         Practice practice = new Practice("practiceTest");
         practiceRepository.save(practice);
