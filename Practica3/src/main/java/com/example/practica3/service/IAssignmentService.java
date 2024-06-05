@@ -26,9 +26,7 @@ public class IAssignmentService {
 
         try {
             Assignment assignmentResult = repository.save(assignment);
-            System.out.println(assignmentResult);
-            System.out.println(assignment);
-            return true;
+            return assignmentResult != null;
         } catch (Exception e) {
             System.out.println(e);
             return false;
@@ -76,8 +74,8 @@ public class IAssignmentService {
             oldAssignment.setOldProjectCode(newAssignment.getOldProjectCode());
             oldAssignment.setNewProjectCode(newAssignment.getNewProjectCode());
             oldAssignment.setRDGRemarks(newAssignment.getRDGRemarks());
-            repository.save(oldAssignment);
-            return true;
+            Assignment assignmentResult = repository.save(oldAssignment);
+            return assignmentResult != null;
         } catch (Exception e) {
             System.out.println(e);
             return false;
