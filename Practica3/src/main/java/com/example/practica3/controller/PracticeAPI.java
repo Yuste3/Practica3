@@ -117,6 +117,6 @@ public class PracticeAPI {
     @DeleteMapping("/{code}")
     public ResponseEntity<ErrorResponse> deletePractice(@PathVariable String code) {
         boolean response = service.deletePractice(code);
-        return response ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(new ErrorResponse(21, "Error deleting practice"), HttpStatus.CONFLICT);
+        return response ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(new ErrorResponse(21, "Error deleting practice"), HttpStatus.CONFLICT);
     }
 }

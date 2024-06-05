@@ -67,11 +67,10 @@ public class EmployeeRepositoryTest {
         Employee employee1 = new Employee(1L, "Daniel Yuste", "Developer", practice);
         employeeRepository.save(employee1);
 
-        mockMvc.perform(get("/api/employees"))
+        mockMvc.perform(get("/api/employees/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("Daniel Yuste")));
+                .andExpect(jsonPath("$.name", is("Daniel Yuste")));
     }
 
     @Test
