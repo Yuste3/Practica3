@@ -1,0 +1,6 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(þÊ¶ìûÿÿÿÿJ$1b04a46e-d061-488d-9cfb-181d3c7a9116
+‚
+java:S1128"ARemove this unused import 'com.example.practica3.model.Practice'.(ý”·ËþÿÿÿÿJ$3e070637-0215-403a-ab03-5a7a7d08d14b
+g
+java:S1128"+Remove this unused import 'lombok.Builder'.(§’ÐßJ$70ddd784-7287-423f-960b-6788994e09a6
