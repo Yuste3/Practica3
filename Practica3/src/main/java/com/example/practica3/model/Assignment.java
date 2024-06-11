@@ -32,10 +32,10 @@ public class Assignment {
     @ManyToOne
     private Project newProjectCode;
 
-    @Column(name = "RDG Remakrs", nullable = false)
+    @Column(name = "RDG Remarks")
     private String RDGRemarks;
 
-    @Column(name = "allocation %", nullable = false)
+    @Column(name = "allocation %")
     private String allocation;
 
     @Column(name = "allocation start date", nullable = false)

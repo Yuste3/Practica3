@@ -20,6 +20,7 @@ public class IAssignmentService {
     }
 
     public boolean insertNewAssignment(Assignment assignment) {
+        System.out.println(assignment.getRDGRemarks());
         if (repository == null || assignment == null) {
             return false;
         }
@@ -39,10 +40,8 @@ public class IAssignmentService {
     public boolean validateAssignment(AssignmentDTO assignmentDTO) {
         return assignmentDTO.getEmployeeCode() > 0 &&
                 assignmentDTO.getSupervisorCode() > 0 &&
-                assignmentDTO.getAssignmentInfo().getRemark() != null && !assignmentDTO.getAssignmentInfo().getRemark().isEmpty() &&
                 assignmentDTO.getAssignmentInfo().getStartDate() != null && !assignmentDTO.getAssignmentInfo().getStartDate().isEmpty() &&
                 assignmentDTO.getAssignmentInfo().getEndDate() != null && !assignmentDTO.getAssignmentInfo().getEndDate().isEmpty() &&
-                assignmentDTO.getAssignmentInfo().getPercentage() != null && !assignmentDTO.getAssignmentInfo().getPercentage().isEmpty() &&
                 assignmentDTO.getProject().getNewCode() != null && !assignmentDTO.getProject().getNewCode().isEmpty() &&
                 assignmentDTO.getProject().getOldCode() != null && !assignmentDTO.getProject().getOldCode().isEmpty() &&
                 assignmentDTO.getPracticeName() != null && !assignmentDTO.getPracticeName().isEmpty();
