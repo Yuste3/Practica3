@@ -5,20 +5,25 @@ import com.example.practica3.DTOs.EmployeeDTOs.UEmployeeDTO;
 import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.model.Employee;
 import com.example.practica3.model.Practice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
 public class EmployeeMapperTest {
 
     @Mock
     private EmployeeMapper mapper;
 
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void shouldReturnEmployeeWhenEmployeeDTOIsMapped() {

@@ -12,3 +12,8 @@ Feature: Employees features
     And return must contain employee's name "Daniel"
     And return must contain employee's role "Pruebas"
     And return must contain employee's practice "prueba"
+
+  Scenario: Deleting employee
+    Given employee exists with code 88
+    When I delete the employee with code 88
+    Then returns NO_CONTENT

@@ -168,7 +168,7 @@ class PracticeAPITest {
 
         ResponseEntity<ErrorResponse> response = controller.deletePractice(code);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test

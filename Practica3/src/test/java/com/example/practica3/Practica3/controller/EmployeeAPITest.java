@@ -7,10 +7,12 @@ import com.example.practica3.Mappers.EmployeeMapper;
 import com.example.practica3.controller.EmployeeAPI;
 import com.example.practica3.model.Employee;
 import com.example.practica3.service.IEmployeeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,7 +23,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
 public class EmployeeAPITest {
 
     @Mock
@@ -32,6 +33,11 @@ public class EmployeeAPITest {
 
     @InjectMocks
     private EmployeeAPI controller;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void shouldInsertEmployeeInDDBBWhenEmployeeIsSuccess() {

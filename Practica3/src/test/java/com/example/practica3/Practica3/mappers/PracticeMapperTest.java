@@ -4,20 +4,26 @@ import com.example.practica3.DTOs.PracticeDTOs.PracticeDTO;
 import com.example.practica3.DTOs.PracticeDTOs.UPracticeDTO;
 import com.example.practica3.Mappers.PracticeMapper;
 import com.example.practica3.model.Practice;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
 public class PracticeMapperTest {
 
     @InjectMocks
     private PracticeMapper mapper = Mappers.getMapper(PracticeMapper.class);
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void shouldReturnPracticeWhenPracticeDTOIsMapped() {

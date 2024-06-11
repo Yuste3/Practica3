@@ -4,20 +4,26 @@ import com.example.practica3.DTOs.ProjectDTOs.ProjectDTO;
 import com.example.practica3.DTOs.ProjectDTOs.UProjectDTO;
 import com.example.practica3.Mappers.ProjectMapper;
 import com.example.practica3.model.Project;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
 public class ProjectMapperTest {
 
     @InjectMocks
     private ProjectMapper mapper = Mappers.getMapper(ProjectMapper.class);
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     public void shouldReturnProjectWhenProjectDTOIsMapped() {
